@@ -1,0 +1,114 @@
+// C++ code
+//Daffodil International University
+
+//Rafiul Islam
+//ID : 183-15-2265
+
+//Sadia Afrin
+//ID : 1833-15-1010
+
+
+#include <Wire.h> 
+#include <LiquidCrystal_I2C.h>
+
+LiquidCrystal_I2C lcd(0x27,16,2); 
+
+void setup()
+{
+  
+  
+  pinMode(0, INPUT);
+  pinMode(2, OUTPUT);
+  pinMode(3, OUTPUT);
+  lcd.begin();
+ 
+    lcd.print("hello Every One");
+    delay(2000);
+    lcd.clear();
+   // lcd.setCursor(3,0);
+    lcd.print("How are You All");
+    delay(1000);
+    lcd.clear();
+    lcd.print("Lets Get Started");
+    delay(2000);
+    lcd.clear();
+    lcd.print("AUTO TEMPERATURE");
+    delay(2000);
+    lcd.clear();
+
+}
+
+
+
+void loop()
+{
+  float v,mv,cel;
+  v = analogRead(0);
+  mv = ( v / 1024.0 ) * 5000;
+  cel = mv / 10;
+  
+  Serial.print("The temperature is ");
+  Serial.print(cel);
+  Serial.print("Degree Centigrade. ");
+  Serial.println();
+  lcd.print("The temperature is");
+  delay(1000);
+  lcd.clear();
+  lcd.setCursor(1, 0);
+  lcd.print(cel);
+  lcd.print(" Degree");
+  delay(2000);
+  lcd.clear();
+ // delay(1000); // Wait for 1000 millisecond(s)
+
+if(cel <= 29){
+  //digitalWrite(3, HIGH);
+  //digitalWrite(2, LOW);
+ //lcd.setCursor(1, 0);
+   lcd.print("Fan Speed Simple");
+    analogWrite(3, 150);
+    analogWrite(13, 150); 
+    analogWrite(11, 150); 
+     
+     delay(3000);
+     lcd.clear();
+   // Wait for 1000 millisecond(s)
+}
+else if(cel <= 40){
+  //digitalWrite(3, HIGH);
+  //digitalWrite(2, LOW);
+ //lcd.setCursor(1, 0);
+     lcd.print("Fan Speed Medium");
+     analogWrite(3, 200); 
+     analogWrite(13, 200); 
+     analogWrite(11, 200); 
+     delay(3000);
+     lcd.clear();
+   // Wait for 1000 millisecond(s)
+}
+
+else if(cel <= 45){
+  //digitalWrite(3, HIGH);
+  //digitalWrite(2, LOW);
+ //lcd.setCursor(1, 0);
+     lcd.print("Fan Speed Fast");
+     analogWrite(3, 255); 
+     analogWrite(13, 255); 
+     analogWrite(11, 255); 
+     delay(3000);
+     lcd.clear();
+   // Wait for 1000 millisecond(s)
+}
+if(cel <= 28){
+  //digitalWrite(3, HIGH);
+  //digitalWrite(2, LOW);
+ //lcd.setCursor(1, 0);
+     lcd.print("Fan OFF");
+     analogWrite(3, 0); 
+     analogWrite(13, 0);
+     analogWrite(11, 0);  
+     delay(3000);
+     lcd.clear();
+   // Wait for 1000 millisecond(s)
+}
+}
